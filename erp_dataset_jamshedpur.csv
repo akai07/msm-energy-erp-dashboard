@@ -1,0 +1,328 @@
+# Table: Customers
+CustomerID,CustomerName,Industry,City,ContactPerson,Email
+C01,Tata Motors,Automotive,Jamshedpur,A. Kumar,purchase@tatamotors.com
+C02,Adhunik Power,Energy,Gamharia,S. Reddy,sourcing@adhunik.com
+C03,JEMCO,Heavy Engineering,Jamshedpur,V. Singh,vendor@jemco.co.in
+C04,National Builders,Construction,Ranchi,P. Mehta,info@nationalbuild.com
+C05,Jharkhand Railways,Transportation,Chakradharpur,R. Soren,tenders@jhrail.gov.in
+C06,Usha Martin,Wire & Cable,Ranchi,S. Jha,procurement@ushamartin.com
+C07,TRF Ltd,Material Handling,Jamshedpur,M. Agarwal,purchasing@trf.co.in
+C08,Hindalco Industries,Aluminum,Renukoot,K. Patel,sourcing@hindalco.com
+C09,Steel Authority of India,Steel,Bokaro,R. Mishra,procurement@sail.co.in
+C10,Jindal Steel & Power,Steel,Raigarh,S. Agrawal,purchase@jspl.com
+C11,Coal India Limited,Mining,Dhanbad,A. Yadav,contracts@coalindia.in
+C12,NTPC Limited,Power,Farakka,M. Sharma,vendor@ntpc.co.in
+C13,Indian Oil Corporation,Petroleum,Haldia,P. Roy,procurement@iocl.co.in
+C14,Bharat Heavy Electricals,Heavy Engineering,Haridwar,V. Kumar,sourcing@bhel.in
+C15,Larsen & Toubro,Construction,Mumbai,S. Nair,purchase@larsentoubro.com
+
+# Table: Sales Orders
+OrderID,CustomerID,OrderDate,ExpectedDelivery,OrderStatus
+ORD-001,C01,2023-10-15,2023-11-10,Completed
+ORD-002,C03,2023-10-20,2023-11-15,Completed
+ORD-003,C02,2023-11-05,2023-12-01,Shipped
+ORD-004,C01,2023-11-12,2023-12-10,In Production
+ORD-005,C04,2023-11-18,2023-12-20,Pending
+ORD-006,C05,2023-11-25,2024-01-15,Pending
+ORD-007,C06,2023-12-02,2024-01-20,Pending
+ORD-008,C07,2023-12-05,2024-01-30,Pending
+ORD-009,C08,2023-12-08,2024-02-05,Pending
+ORD-010,C09,2023-12-10,2024-02-10,Pending
+ORD-011,C10,2023-12-12,2024-02-15,Pending
+ORD-012,C11,2023-12-15,2024-02-20,Pending
+ORD-013,C12,2023-12-18,2024-02-25,Pending
+ORD-014,C13,2023-12-20,2024-03-01,Pending
+ORD-015,C14,2023-12-22,2024-03-05,Pending
+ORD-016,C15,2023-12-25,2024-03-10,Pending
+ORD-017,C02,2024-01-02,2024-03-15,Pending
+ORD-018,C01,2024-01-05,2024-03-20,Pending
+ORD-019,C03,2024-01-08,2024-03-25,Pending
+ORD-020,C04,2024-01-10,2024-03-30,Pending
+
+# Table: Sales Order Items
+OrderItemID,OrderID,ProductID,Quantity,UnitPrice,TotalPrice
+OI-1,ORD-001,P1002,50,4500.00,225000.00
+OI-2,ORD-002,P1004,10,2500.00,25000.00
+OI-3,ORD-003,P1001,200,1200.00,240000.00
+OI-4,ORD-004,P1005,30,3200.00,96000.00
+OI-5,ORD-005,P1003,500,350.50,175250.00
+OI-6,ORD-006,P1001,150,1200.00,180000.00
+OI-7,ORD-006,P1004,25,2500.00,62500.00
+OI-8,ORD-007,P1006,1000,250.00,250000.00
+OI-9,ORD-008,P1007,5,15000.00,75000.00
+OI-10,ORD-009,P1008,100,850.00,85000.00
+OI-11,ORD-010,P1009,75,1800.00,135000.00
+OI-12,ORD-011,P1010,200,950.00,190000.00
+OI-13,ORD-012,P1011,300,420.00,126000.00
+OI-14,ORD-013,P1012,50,5200.00,260000.00
+OI-15,ORD-014,P1013,80,2800.00,224000.00
+OI-16,ORD-015,P1014,120,1650.00,198000.00
+OI-17,ORD-016,P1015,40,7500.00,300000.00
+OI-18,ORD-017,P1001,300,1200.00,360000.00
+OI-19,ORD-018,P1002,75,4500.00,337500.00
+OI-20,ORD-019,P1003,800,350.50,280400.00
+OI-21,ORD-020,P1004,60,2500.00,150000.00
+
+# Table: Products
+ProductID,ProductName,Category,UnitPrice
+P1001,Steel Flange,Fittings,1200.00
+P1002,Industrial Gear,Machine Parts,4500.00
+P1003,Metal Bracket,Fabrication,350.50
+P1004,Custom Steel Plate,Fabrication,2500.00
+P1005,Bearing Housing,Machine Parts,3200.00
+P1006,High-Tensile Bolt,Fasteners,250.00
+P1007,Conveyor Roller Assy,Assemblies,15000.00
+P1008,Hydraulic Cylinder,Machine Parts,850.00
+P1009,Steel Pipe Joint,Fittings,1800.00
+P1010,Welded Frame,Fabrication,950.00
+P1011,Industrial Valve,Fittings,420.00
+P1012,Motor Mount,Machine Parts,5200.00
+P1013,Pressure Vessel,Assemblies,2800.00
+P1014,Coupling Assembly,Machine Parts,1650.00
+P1015,Heavy Duty Crane Hook,Assemblies,7500.00
+P1016,Steel Beam,Structural,3200.00
+P1017,Forged Component,Forgings,2100.00
+P1018,Cast Iron Block,Castings,1850.00
+P1019,Machined Shaft,Machine Parts,980.00
+P1020,Heat Exchanger,Assemblies,12500.00
+
+# Table: Bill of Materials (BOM)
+BOM_ID,ProductID,MaterialID,Quantity,Unit
+B01,P1001,M001,5.0,kg
+B02,P1001,M005,0.1,boxes
+B03,P1002,M001,12.0,kg
+B04,P1003,M002,2.5,meters
+B05,P1003,M003,0.2,kg
+B06,P1004,M001,20.0,kg
+B07,P1005,M001,8.0,kg
+B08,P1005,M004,0.5,liters
+B09,P1006,M006,1.5,kg
+B10,P1007,M002,10.0,meters
+B11,P1007,M007,2.0,units
+B12,P1008,M001,6.5,kg
+B13,P1008,M008,1.0,units
+B14,P1009,M001,15.0,kg
+B15,P1009,M003,0.3,kg
+B16,P1010,M002,8.0,meters
+B17,P1010,M001,25.0,kg
+B18,P1011,M009,3.0,kg
+B19,P1011,M010,0.5,units
+B20,P1012,M001,18.0,kg
+B21,P1012,M007,4.0,units
+B22,P1013,M001,45.0,kg
+B23,P1013,M011,2.0,sheets
+B24,P1014,M001,12.0,kg
+B25,P1014,M007,3.0,units
+B26,P1015,M006,35.0,kg
+B27,P1015,M012,1.0,units
+
+# Table: Work Orders
+WorkOrderID,OrderID,ProductID,QuantityToProduce,StartDate,EndDate,Status,AssignedTo
+WO-001,ORD-003,P1001,200,2023-11-06,2023-11-20,Completed,E101
+WO-002,ORD-004,P1005,30,2023-11-13,,In Progress,E105
+WO-003,ORD-007,P1006,1000,2023-12-04,,Pending,E106
+WO-004,ORD-009,P1008,100,2023-12-09,,In Progress,E108
+WO-005,ORD-010,P1009,75,2023-12-11,,Pending,E109
+WO-006,ORD-011,P1010,200,2023-12-13,,Pending,E110
+WO-007,ORD-012,P1011,300,2023-12-16,,Pending,E111
+WO-008,ORD-013,P1012,50,2023-12-19,,Pending,E112
+WO-009,ORD-014,P1013,80,2023-12-21,,Pending,E113
+WO-010,ORD-015,P1014,120,2023-12-23,,Pending,E114
+WO-011,ORD-016,P1015,40,2023-12-26,,Pending,E115
+WO-012,ORD-017,P1001,300,2024-01-03,,Pending,E101
+WO-013,ORD-018,P1002,75,2024-01-06,,Pending,E105
+WO-014,ORD-019,P1003,800,2024-01-09,,Pending,E106
+WO-015,ORD-020,P1004,60,2024-01-11,,Pending,E108
+
+# Table: Raw Materials & Inventory
+MaterialID,MaterialName,StockQuantity,Unit,ReorderLevel,SupplierID
+M001,Steel Coil,5000,kg,1000,S501
+M002,Iron Rods (12mm),10000,meters,2000,S501
+M003,Welding Wire,200,kg,50,S502
+M004,Zinc Coating,150,liters,40,S503
+M005,Fasteners (Box),800,boxes,100,S502
+M006,Alloy Steel Bar,3000,kg,500,S504
+M007,Industrial Bearing,400,units,50,S502
+M008,Hydraulic Seal Kit,250,units,30,S505
+M009,Brass Components,500,kg,100,S506
+M010,Control Valve,150,units,25,S507
+M011,Steel Sheet (5mm),800,sheets,150,S501
+M012,Heavy Duty Chain,100,units,20,S508
+M013,Aluminum Alloy,1200,kg,200,S509
+M014,Copper Wire,300,kg,50,S510
+M015,Rubber Gaskets,500,units,75,S511
+M016,Stainless Steel Rod,800,kg,150,S512
+M017,Carbon Steel Pipe,2000,meters,400,S501
+M018,Heat Treatment Oil,100,liters,20,S503
+M019,Grinding Wheels,200,units,40,S513
+M020,Cutting Tools,150,units,30,S514
+
+# Table: Suppliers
+SupplierID,SupplierName,City,ContactPerson
+S501,Jharkhand Steel Corp.,Jamshedpur,R. Sharma
+S502,Industrial Needs Ltd.,Ranchi,A. Gupta
+S503,Chemical Brothers,Adityapur,S. Singh
+S504,Modern Alloys Pvt Ltd,Gamharia,K. Murthy
+S505,Hydraulic Systems Inc.,Kolkata,P. Das
+S506,Precision Components,Chennai,M. Raman
+S507,Control Systems Ltd.,Pune,A. Patil
+S508,Heavy Engineering Co.,Bhilai,R. Tiwari
+S509,Aluminum Works,Bhubaneswar,S. Mohanty
+S510,Electrical Supplies,Asansol,K. Banerjee
+S511,Rubber Industries,Durgapur,N. Ghosh
+S512,Stainless Steel Corp.,Mumbai,V. Joshi
+S513,Abrasives Ltd.,Coimbatore,T. Krishnan
+S514,Tool Manufacturing,Bangalore,S. Reddy
+
+# Table: Quality Checks
+CheckID,WorkOrderID,EmployeeID,CheckTimestamp,Status,Notes
+Q-001,WO-001,E102,2023-11-15 10:30:00,Pass,Dimensions are correct
+Q-002,WO-001,E102,2023-11-20 16:00:00,Pass,Final inspection OK
+Q-003,WO-002,E107,2023-11-18 14:00:00,Fail,Surface scratches found
+Q-004,WO-002,E107,2023-11-19 11:00:00,Pass,Rework successful
+Q-005,WO-004,E116,2023-12-10 09:15:00,Pass,Hydraulic pressure test OK
+Q-006,WO-004,E117,2023-12-12 15:30:00,Fail,Seal leakage detected
+Q-007,WO-004,E116,2023-12-13 11:45:00,Pass,Seal replaced and retested
+Q-008,WO-005,E118,2023-12-14 13:20:00,Pass,Welding quality approved
+Q-009,WO-006,E119,2023-12-15 10:00:00,Pass,Frame alignment verified
+Q-010,WO-007,E120,2023-12-17 14:15:00,Fail,Thread pitch incorrect
+Q-011,WO-007,E120,2023-12-18 09:30:00,Pass,Rethreading completed
+Q-012,WO-008,E121,2023-12-20 16:45:00,Pass,Motor mount specifications met
+Q-013,WO-009,E122,2023-12-22 11:20:00,Pass,Pressure vessel tested
+Q-014,WO-010,E123,2023-12-24 08:30:00,Pass,Coupling assembly approved
+Q-015,WO-011,E124,2023-12-27 14:00:00,Pass,Crane hook load test passed
+
+# Table: Invoices
+InvoiceID,OrderID,InvoiceDate,DueDate,Amount,Status
+INV-001,ORD-001,2023-11-11,2023-12-11,225000.00,Paid
+INV-002,ORD-002,2023-11-16,2023-12-16,25000.00,Paid
+INV-003,ORD-003,2023-12-02,2024-01-02,240000.00,Unpaid
+INV-004,ORD-009,2023-12-15,2024-01-15,85000.00,Unpaid
+INV-005,ORD-010,2023-12-18,2024-01-18,135000.00,Unpaid
+INV-006,ORD-011,2023-12-20,2024-01-20,190000.00,Unpaid
+INV-007,ORD-012,2023-12-22,2024-01-22,126000.00,Unpaid
+INV-008,ORD-013,2023-12-25,2024-01-25,260000.00,Unpaid
+INV-009,ORD-014,2023-12-28,2024-01-28,224000.00,Unpaid
+INV-010,ORD-015,2023-12-30,2024-01-30,198000.00,Unpaid
+INV-011,ORD-016,2024-01-02,2024-02-02,300000.00,Unpaid
+INV-012,ORD-017,2024-01-05,2024-02-05,360000.00,Unpaid
+INV-013,ORD-018,2024-01-08,2024-02-08,337500.00,Unpaid
+INV-014,ORD-019,2024-01-10,2024-02-10,280400.00,Unpaid
+INV-015,ORD-020,2024-01-12,2024-02-12,150000.00,Unpaid
+
+# Table: Employees
+EmployeeID,EmployeeName,Department,Role,DateOfJoining,Salary
+E101,Suresh Kumar,Production,Machine Operator,2020-03-10,25000.00
+E102,Meena Devi,Quality,QA Inspector,2021-07-22,28000.00
+E103,Anil Prasad,Administration,Accounts Manager,2018-05-15,60000.00
+E104,Priya Singh,Sales,Sales Executive,2022-01-30,45000.00
+E105,Rajesh Murmu,Production,Welder,2019-11-01,26000.00
+E106,David Barla,Production,CNC Operator,2022-08-01,32000.00
+E107,Sunita Kumari,Quality,QA Supervisor,2020-02-17,35000.00
+E108,Amit Sharma,Production,Hydraulic Technician,2021-03-15,29000.00
+E109,Ravi Oraon,Production,Pipe Fitter,2020-09-20,27000.00
+E110,Sanjay Mahto,Production,Fabricator,2019-06-12,28500.00
+E111,Kavita Devi,Production,Assembly Worker,2022-02-28,24000.00
+E112,Deepak Singh,Production,Motor Specialist,2021-11-05,31000.00
+E113,Anita Kumari,Production,Pressure Vessel Technician,2020-12-18,33000.00
+E114,Manoj Kumar,Production,Coupling Specialist,2022-04-10,30000.00
+E115,Ritu Singh,Production,Heavy Equipment Operator,2021-08-25,35000.00
+E116,Vikash Prasad,Quality,Hydraulic Inspector,2020-01-20,32000.00
+E117,Shanti Devi,Quality,Seal Testing Specialist,2021-05-30,29000.00
+E118,Ramesh Soren,Quality,Welding Inspector,2019-10-15,31000.00
+E119,Pooja Kumari,Quality,Frame Alignment Specialist,2022-06-08,28000.00
+E120,Ajay Tiwari,Quality,Threading Inspector,2020-08-12,30000.00
+E121,Neha Singh,Quality,Motor Mount Inspector,2021-12-03,29500.00
+E122,Rakesh Yadav,Quality,Pressure Test Specialist,2020-04-25,34000.00
+E123,Sunita Singh,Quality,Coupling Inspector,2022-01-15,28500.00
+E124,Vinod Kumar,Quality,Load Test Specialist,2019-12-08,36000.00
+E125,Geeta Devi,Administration,HR Manager,2018-03-20,55000.00
+E126,Rajesh Singh,Administration,Purchase Manager,2019-07-10,52000.00
+E127,Sita Kumari,Administration,Inventory Manager,2020-11-22,48000.00
+E128,Mukesh Prasad,Sales,Regional Sales Manager,2018-09-05,65000.00
+E129,Asha Devi,Sales,Customer Relations Executive,2021-04-18,42000.00
+E130,Santosh Kumar,Finance,Finance Manager,2017-12-15,70000.00
+
+# Table: Energy Consumption
+EnergyID,Date,Department,EnergyConsumed,EnergyType,Cost
+EN-001,2023-11-01,Production,1250.5,Electricity,18757.50
+EN-002,2023-11-01,Quality,85.2,Electricity,1278.00
+EN-003,2023-11-01,Administration,45.8,Electricity,687.00
+EN-004,2023-11-02,Production,1180.3,Electricity,17704.50
+EN-005,2023-11-02,Quality,92.1,Electricity,1381.50
+EN-006,2023-11-02,Administration,48.6,Electricity,729.00
+EN-007,2023-11-03,Production,1320.8,Electricity,19812.00
+EN-008,2023-11-03,Quality,78.9,Electricity,1183.50
+EN-009,2023-11-03,Administration,52.3,Electricity,784.50
+EN-010,2023-11-04,Production,1275.6,Electricity,19134.00
+EN-011,2023-11-04,Quality,88.4,Electricity,1326.00
+EN-012,2023-11-04,Administration,46.2,Electricity,693.00
+EN-013,2023-11-05,Production,1195.2,Electricity,17928.00
+EN-014,2023-11-05,Quality,95.7,Electricity,1435.50
+EN-015,2023-11-05,Administration,49.8,Electricity,747.00
+EN-016,2023-11-06,Production,1385.4,Electricity,20781.00
+EN-017,2023-11-06,Quality,82.6,Electricity,1239.00
+EN-018,2023-11-06,Administration,51.9,Electricity,778.50
+EN-019,2023-11-07,Production,1298.7,Electricity,19480.50
+EN-020,2023-11-07,Quality,91.3,Electricity,1369.50
+EN-021,2023-11-07,Administration,47.5,Electricity,712.50
+EN-022,2023-11-08,Production,1225.9,Electricity,18388.50
+EN-023,2023-11-08,Quality,86.8,Electricity,1302.00
+EN-024,2023-11-08,Administration,53.2,Electricity,798.00
+EN-025,2023-11-09,Production,1345.1,Electricity,20176.50
+EN-026,2023-11-09,Quality,79.4,Electricity,1191.00
+EN-027,2023-11-09,Administration,48.7,Electricity,730.50
+EN-028,2023-11-10,Production,1265.8,Electricity,18987.00
+EN-029,2023-11-10,Quality,93.6,Electricity,1404.00
+EN-030,2023-11-10,Administration,50.1,Electricity,751.50
+
+# Table: Purchase Orders
+PurchaseOrderID,SupplierID,OrderDate,ExpectedDelivery,TotalAmount,Status
+PO-001,S501,2023-11-01,2023-11-15,125000.00,Delivered
+PO-002,S502,2023-11-03,2023-11-18,45000.00,Delivered
+PO-003,S503,2023-11-05,2023-11-20,18500.00,Delivered
+PO-004,S504,2023-11-08,2023-11-25,75000.00,In Transit
+PO-005,S505,2023-11-10,2023-11-28,32000.00,In Transit
+PO-006,S506,2023-11-12,2023-11-30,28500.00,Pending
+PO-007,S507,2023-11-15,2023-12-05,41000.00,Pending
+PO-008,S508,2023-11-18,2023-12-10,67500.00,Pending
+PO-009,S509,2023-11-20,2023-12-15,39000.00,Pending
+PO-010,S510,2023-11-22,2023-12-18,22500.00,Pending
+PO-011,S511,2023-11-25,2023-12-20,15800.00,Pending
+PO-012,S512,2023-11-28,2023-12-25,58000.00,Pending
+PO-013,S513,2023-12-01,2023-12-28,19200.00,Pending
+PO-014,S514,2023-12-03,2023-12-30,24700.00,Pending
+PO-015,S501,2023-12-05,2024-01-05,135000.00,Pending
+
+# Table: Attendance
+AttendanceID,EmployeeID,Date,TimeIn,TimeOut,HoursWorked,Status
+ATT-001,E101,2023-11-01,08:00:00,17:00:00,9.0,Present
+ATT-002,E102,2023-11-01,08:15:00,17:15:00,9.0,Present
+ATT-003,E103,2023-11-01,09:00:00,18:00:00,9.0,Present
+ATT-004,E104,2023-11-01,08:30:00,17:30:00,9.0,Present
+ATT-005,E105,2023-11-01,08:00:00,17:00:00,9.0,Present
+ATT-006,E106,2023-11-01,08:00:00,17:00:00,9.0,Present
+ATT-007,E107,2023-11-01,08:30:00,17:30:00,9.0,Present
+ATT-008,E108,2023-11-01,08:00:00,17:00:00,9.0,Present
+ATT-009,E109,2023-11-01,08:15:00,17:15:00,9.0,Present
+ATT-010,E110,2023-11-01,08:00:00,17:00:00,9.0,Present
+ATT-011,E101,2023-11-02,08:00:00,17:00:00,9.0,Present
+ATT-012,E102,2023-11-02,08:15:00,17:15:00,9.0,Present
+ATT-013,E103,2023-11-02,,,0.0,Absent
+ATT-014,E104,2023-11-02,08:30:00,17:30:00,9.0,Present
+ATT-015,E105,2023-11-02,08:00:00,17:00:00,9.0,Present
+ATT-016,E106,2023-11-02,08:00:00,17:00:00,9.0,Present
+ATT-017,E107,2023-11-02,08:30:00,17:30:00,9.0,Present
+ATT-018,E108,2023-11-02,08:00:00,17:00:00,9.0,Present
+ATT-019,E109,2023-11-02,08:15:00,17:15:00,9.0,Present
+ATT-020,E110,2023-11-02,08:00:00,17:00:00,9.0,Present
+ATT-021,E101,2023-11-03,08:00:00,17:00:00,9.0,Present
+ATT-022,E102,2023-11-03,08:15:00,17:15:00,9.0,Present
+ATT-023,E103,2023-11-03,09:00:00,18:00:00,9.0,Present
+ATT-024,E104,2023-11-03,08:30:00,17:30:00,9.0,Present
+ATT-025,E105,2023-11-03,08:00:00,17:00:00,9.0,Present
+ATT-026,E106,2023-11-03,08:00:00,17:00:00,9.0,Present
+ATT-027,E107,2023-11-03,08:30:00,17:30:00,9.0,Present
+ATT-028,E108,2023-11-03,08:00:00,17:00:00,9.0,Present
+ATT-029,E109,2023-11-03,08:15:00,17:15:00,9.0,Present
+ATT-030,E110,2023-11-03,08:00:00,17:00:00,9.0,Present

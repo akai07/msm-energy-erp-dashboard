@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - MSM Energy ERP{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <h1 class="h3 text-primary mb-2">MSM Energy ERP</h1>
+                    <p class="text-muted">Sign in to your account</p>
+                </div>
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Please correct the errors below.
+                    </div>
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">
+                            <i class="fas fa-user me-2"></i>Username
+                        </label>
+                        <input type="text" 
+                               class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                               id="{{ form.username.id_for_label }}"
+                               name="{{ form.username.name }}"
+                               value="{{ form.username.value|default:'' }}"
+                               placeholder="Enter your username"
+                               required>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.username.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.password.id_for_label }}" class="form-label">
+                            <i class="fas fa-lock me-2"></i>Password
+                        </label>
+                        <input type="password" 
+                               class="form-control {% if form.password.errors %}is-invalid{% endif %}" 
+                               id="{{ form.password.id_for_label }}"
+                               name="{{ form.password.name }}"
+                               placeholder="Enter your password"
+                               required>
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.password.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </button>
+                    </div>
+                </form>
+                
+                <hr class="my-4">
+                
+                <div class="text-center">
+                    <small class="text-muted">
+                        Demo Credentials: <strong>admin</strong> / <strong>admin</strong>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.card {
+    border-radius: 15px;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 12px 16px;
+}
+
+.btn-primary {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container-fluid {
+    padding: 0;
+}
+</style>
+{% endblock %}

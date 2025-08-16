@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+{% block title %}Energy Dashboard - MSM Energy ERP{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+    <h1 class="h3 mb-2 mb-md-0">Energy Dashboard</h1>
+    <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
+        <button class="btn btn-success btn-sm" onclick="exportData()">
+            <i class="fas fa-download me-1"></i><span class="d-none d-sm-inline">Export Data</span><span class="d-sm-none">Export</span>
+        </button>
+        <button class="btn btn-outline-primary btn-sm" onclick="refreshEnergyData()">
+            <i class="fas fa-sync-alt me-1"></i>Refresh
+        </button>
+    </div>
+</div>
+
+<!-- Real-time Energy Metrics -->
+<div class="row mb-4">
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-primary h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-primary" id="currentConsumption">14,567 kWh</div>
+                <div class="metric-label">Current Consumption</div>
+                <small class="text-info mt-auto"><i class="fas fa-clock"></i> Real-time</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-success h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-success" id="efficiencyRating">87.3%</div>
+                <div class="metric-label">Efficiency Rating</div>
+                <small class="text-success mt-auto"><i class="fas fa-arrow-up"></i> +2.1% today</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-warning h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-warning" id="peakDemand">18,234 kW</div>
+                <div class="metric-label">Peak Demand</div>
+                <small class="text-muted mt-auto">Today at 2:30 PM</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-info h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-info" id="costSavings">₹1,23,456</div>
+                <div class="metric-label">Cost Savings</div>
+                <small class="text-success mt-auto"><i class="fas fa-arrow-up"></i> This month</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Energy Consumption Trends -->
+<div class="row mb-4">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold">Energy Consumption Trends</h6>
+                <div class="btn-group btn-group-sm" role="group">
+                    <input type="radio" class="btn-check" name="timeRange" id="hourly" checked>
+                    <label class="btn btn-outline-primary" for="hourly">Hourly</label>
+                    
+                    <input type="radio" class="btn-check" name="timeRange" id="daily">
+                    <label class="btn btn-outline-primary" for="daily">Daily</label>
+                    
+                    <input type="radio" class="btn-check" name="timeRange" id="monthly">
+                    <label class="btn btn-outline-primary" for="monthly">Monthly</label>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="energyTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Energy Distribution</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="energyDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Equipment Performance -->
+<div class="row mb-4">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Equipment Performance</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Equipment</th>
+                                <th>Status</th>
+                                <th>Efficiency</th>
+                                <th>Power (kW)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Furnace #1</td>
+                                <td><span class="status-indicator status-online"></span>Running</td>
+                                <td><span class="badge bg-success">92%</span></td>
+                                <td>2,450</td>
+                            </tr>
+                            <tr>
+                                <td>Furnace #2</td>
+                                <td><span class="status-indicator status-warning"></span>Maintenance</td>
+                                <td><span class="badge bg-warning">--</span></td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Rolling Mill</td>
+                                <td><span class="status-indicator status-online"></span>Running</td>
+                                <td><span class="badge bg-success">89%</span></td>
+                                <td>1,850</td>
+                            </tr>
+                            <tr>
+                                <td>Cooling System</td>
+                                <td><span class="status-indicator status-online"></span>Running</td>
+                                <td><span class="badge bg-info">85%</span></td>
+                                <td>650</td>
+                            </tr>
+                            <tr>
+                                <td>Compressor #1</td>
+                                <td><span class="status-indicator status-online"></span>Running</td>
+                                <td><span class="badge bg-success">91%</span></td>
+                                <td>320</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Power Quality Metrics</h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <div class="metric-value text-success">0.95</div>
+                        <div class="metric-label">Power Factor</div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar bg-success" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="metric-value text-info">415V</div>
+                        <div class="metric-label">Voltage (L-L)</div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar bg-info" style="width: 98%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <div class="metric-value text-warning">2.3%</div>
+                        <div class="metric-label">THD Voltage</div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar bg-warning" style="width: 23%"></div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="metric-value text-primary">50.02Hz</div>
+                        <div class="metric-label">Frequency</div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar bg-primary" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info alert-sm">
+                    <i class="fas fa-info-circle me-2"></i>
+                    All parameters within acceptable limits
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Energy Alerts and Recommendations -->
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Energy Alerts & Recommendations</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="fas fa-exclamation-triangle me-3"></i>
+                    <div>
+                        <strong>High Energy Consumption Detected</strong><br>
+                        <small>Furnace #1 consuming 15% above normal. Consider scheduling maintenance.</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-warning ms-auto">Acknowledge</button>
+                </div>
+                
+                <div class="alert alert-info d-flex align-items-center" role="alert">
+                    <i class="fas fa-lightbulb me-3"></i>
+                    <div>
+                        <strong>Optimization Opportunity</strong><br>
+                        <small>Shift non-critical operations to off-peak hours to save ₹8,500/day.</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-info ms-auto">View Details</button>
+                </div>
+                
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <i class="fas fa-check-circle me-3"></i>
+                    <div>
+                        <strong>Efficiency Target Achieved</strong><br>
+                        <small>Monthly efficiency target of 85% exceeded. Current: 87.3%</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" onclick="generateReport()">
+                        <i class="fas fa-chart-line me-2"></i>Generate Report
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="scheduleAnalysis()">
+                        <i class="fas fa-calendar-alt me-2"></i>Schedule Analysis
+                    </button>
+                    <button class="btn btn-outline-info" onclick="viewHistorical()">
+                        <i class="fas fa-history me-2"></i>Historical Data
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="setAlerts()">
+                        <i class="fas fa-bell me-2"></i>Configure Alerts
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Energy Trend Chart
+const energyTrendCtx = document.getElementById('energyTrendChart').getContext('2d');
+let energyTrendChart = new Chart(energyTrendCtx, {
+    type: 'line',
+    data: {
+        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+        datasets: [{
+            label: 'Consumption (kWh)',
+            data: [12000, 8500, 15000, 18000, 16500, 14000],
+            borderColor: '#3498db',
+            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+            tension: 0.4,
+            fill: true
+        }, {
+            label: 'Target',
+            data: [13000, 9000, 14000, 17000, 15500, 13500],
+            borderColor: '#e74c3c',
+            backgroundColor: 'transparent',
+            borderDash: [5, 5],
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Energy Distribution Chart
+const energyDistCtx = document.getElementById('energyDistributionChart').getContext('2d');
+const energyDistChart = new Chart(energyDistCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Furnaces', 'Rolling Mill', 'Cooling', 'Lighting', 'Others'],
+        datasets: [{
+            data: [45, 25, 15, 8, 7],
+            backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Time Range Change Handler
+document.querySelectorAll('input[name="timeRange"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        updateEnergyTrendChart(this.id);
+    });
+});
+
+function updateEnergyTrendChart(timeRange) {
+    let labels, data, targetData;
+    
+    switch(timeRange) {
+        case 'hourly':
+            labels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+            data = [12000, 8500, 15000, 18000, 16500, 14000];
+            targetData = [13000, 9000, 14000, 17000, 15500, 13500];
+            break;
+        case 'daily':
+            labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            data = [85000, 92000, 88000, 95000, 90000, 75000, 70000];
+            targetData = [90000, 90000, 90000, 90000, 90000, 80000, 75000];
+            break;
+        case 'monthly':
+            labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            data = [2500000, 2300000, 2700000, 2600000, 2800000, 2750000];
+            targetData = [2600000, 2400000, 2650000, 2550000, 2750000, 2700000];
+            break;
+    }
+    
+    energyTrendChart.data.labels = labels;
+    energyTrendChart.data.datasets[0].data = data;
+    energyTrendChart.data.datasets[1].data = targetData;
+    energyTrendChart.update();
+}
+
+// Refresh Energy Data
+function refreshEnergyData() {
+    const refreshBtn = document.querySelector('[onclick="refreshEnergyData()"]');
+    const icon = refreshBtn.querySelector('i');
+    
+    icon.classList.add('fa-spin');
+    
+    setTimeout(() => {
+        icon.classList.remove('fa-spin');
+        updateRealTimeMetrics();
+        updateCharts();
+    }, 2000);
+}
+
+// Update Real-time Metrics
+function updateRealTimeMetrics() {
+    document.getElementById('currentConsumption').textContent = 
+        (Math.floor(Math.random() * 5000) + 12000).toLocaleString() + ' kWh';
+    document.getElementById('efficiencyRating').textContent = 
+        (Math.random() * 10 + 85).toFixed(1) + '%';
+    document.getElementById('peakDemand').textContent = 
+        (Math.floor(Math.random() * 3000) + 16000).toLocaleString() + ' kW';
+}
+
+// Update Charts
+function updateCharts() {
+    const newTrendData = Array.from({length: 6}, () => Math.floor(Math.random() * 10000) + 8000);
+    const newDistData = [45 + Math.random() * 10 - 5, 25 + Math.random() * 5 - 2.5, 15 + Math.random() * 5 - 2.5, 8 + Math.random() * 3 - 1.5, 7 + Math.random() * 3 - 1.5];
+    
+    energyTrendChart.data.datasets[0].data = newTrendData;
+    energyDistChart.data.datasets[0].data = newDistData;
+    
+    energyTrendChart.update();
+    energyDistChart.update();
+}
+
+// Quick Action Functions
+function exportData() {
+    alert('Energy data export initiated. Report will be available in Downloads.');
+}
+
+function generateReport() {
+    alert('Generating comprehensive energy report...');
+}
+
+function scheduleAnalysis() {
+    alert('Opening analysis scheduler...');
+}
+
+function viewHistorical() {
+    alert('Loading historical energy data...');
+}
+
+function setAlerts() {
+    alert('Opening alert configuration panel...');
+}
+
+// Auto-refresh every 30 seconds for real-time data
+setInterval(updateRealTimeMetrics, 30000);
+</script>
+{% endblock %}

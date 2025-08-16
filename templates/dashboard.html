@@ -1,0 +1,373 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - MSM Energy ERP{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+    <h1 class="h3 mb-2 mb-md-0">Dashboard Overview</h1>
+    <div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
+        <button class="btn btn-outline-primary btn-sm" onclick="refreshData()">
+            <i class="fas fa-sync-alt me-1"></i>Refresh
+        </button>
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle w-100 w-sm-auto" type="button" data-bs-toggle="dropdown">
+                <i class="fas fa-calendar me-1"></i><span class="d-none d-sm-inline">Last 30 Days</span><span class="d-sm-none">Period</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                <li><a class="dropdown-item" href="#">Last 90 Days</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Key Metrics Row -->
+<div class="row mb-4">
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-primary h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-primary" id="totalRevenue">₹2,45,67,890</div>
+                <div class="metric-label">Total Revenue</div>
+                <small class="text-success mt-auto"><i class="fas fa-arrow-up"></i> 12.5% from last month</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-success h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-success" id="energyEfficiency">87.3%</div>
+                <div class="metric-label">Energy Efficiency</div>
+                <small class="text-success mt-auto"><i class="fas fa-arrow-up"></i> 3.2% improvement</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-info h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-info" id="activeOrders">156</div>
+                <div class="metric-label">Active Orders</div>
+                <small class="text-warning mt-auto"><i class="fas fa-arrow-down"></i> 2.1% from last week</small>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6 col-md-6 col-xl-3 mb-3 mb-xl-4">
+        <div class="card border-left-warning h-100">
+            <div class="card-body metric-card d-flex flex-column justify-content-center">
+                <div class="metric-value text-warning" id="productionOutput">1,234</div>
+                <div class="metric-label">Production Output (MT)</div>
+                <small class="text-success mt-auto"><i class="fas fa-arrow-up"></i> 8.7% increase</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Energy Consumption Chart -->
+    <div class="col-12 col-lg-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold">Energy Consumption Trends</h6>
+                <button class="btn btn-sm btn-outline-light d-none d-md-block" onclick="expandChart('energyChart')">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="energyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Production Status -->
+    <div class="col-12 col-lg-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold">Production Status</h6>
+                <button class="btn btn-sm btn-outline-light d-none d-md-block" onclick="expandChart('productionChart')">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="productionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Revenue and Quality Row -->
+<div class="row mb-4">
+    <!-- Revenue Chart -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Monthly Revenue</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quality Metrics -->
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Quality Metrics</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <div class="metric-value text-success">98.7%</div>
+                        <div class="metric-label">Quality Score</div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="metric-value text-warning">12</div>
+                        <div class="metric-label">Pending Inspections</div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <div class="metric-value text-info">3</div>
+                        <div class="metric-label">Non-Conformances</div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="metric-value text-success">45</div>
+                        <div class="metric-label">Completed Tests</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activities -->
+<div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">Recent Activities</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Activity</th>
+                                <th>Module</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:30 AM</td>
+                                <td>New purchase order created</td>
+                                <td><span class="badge bg-primary">Inventory</span></td>
+                                <td><span class="status-indicator status-online"></span>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>09:45 AM</td>
+                                <td>Quality inspection scheduled</td>
+                                <td><span class="badge bg-success">Quality</span></td>
+                                <td><span class="status-indicator status-warning"></span>Pending</td>
+                            </tr>
+                            <tr>
+                                <td>09:15 AM</td>
+                                <td>Production line maintenance</td>
+                                <td><span class="badge bg-warning">Production</span></td>
+                                <td><span class="status-indicator status-online"></span>In Progress</td>
+                            </tr>
+                            <tr>
+                                <td>08:30 AM</td>
+                                <td>Energy alert resolved</td>
+                                <td><span class="badge bg-info">Energy</span></td>
+                                <td><span class="status-indicator status-online"></span>Resolved</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold">System Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Database</span>
+                    <span class="status-indicator status-online"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Energy Monitoring</span>
+                    <span class="status-indicator status-online"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Production Line 1</span>
+                    <span class="status-indicator status-warning"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Production Line 2</span>
+                    <span class="status-indicator status-online"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>Quality Control</span>
+                    <span class="status-indicator status-online"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Energy Consumption Chart
+const energyCtx = document.getElementById('energyChart').getContext('2d');
+const energyChart = new Chart(energyCtx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Energy Consumption (kWh)',
+            data: [12000, 11500, 13200, 12800, 14100, 13900, 15200, 14800, 13600, 14200, 13800, 15000],
+            borderColor: '#3498db',
+            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Production Status Chart
+const productionCtx = document.getElementById('productionChart').getContext('2d');
+const productionChart = new Chart(productionCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Completed', 'In Progress', 'Pending', 'On Hold'],
+        datasets: [{
+            data: [65, 20, 10, 5],
+            backgroundColor: ['#27ae60', '#3498db', '#f39c12', '#e74c3c'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Revenue Chart
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+const revenueChart = new Chart(revenueCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+            label: 'Revenue (₹ Lakhs)',
+            data: [180, 220, 195, 240, 210, 260],
+            backgroundColor: 'rgba(52, 152, 219, 0.8)',
+            borderColor: '#3498db',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Refresh Data Function
+function refreshData() {
+    // Simulate data refresh
+    const refreshBtn = document.querySelector('[onclick="refreshData()"]');
+    const icon = refreshBtn.querySelector('i');
+    
+    icon.classList.add('fa-spin');
+    
+    setTimeout(() => {
+        icon.classList.remove('fa-spin');
+        // Update charts with new data
+        updateCharts();
+    }, 2000);
+}
+
+// Update Charts Function
+function updateCharts() {
+    // Generate random data for demonstration
+    const newEnergyData = Array.from({length: 12}, () => Math.floor(Math.random() * 5000) + 10000);
+    const newProductionData = [Math.floor(Math.random() * 30) + 50, Math.floor(Math.random() * 15) + 15, Math.floor(Math.random() * 15) + 5, Math.floor(Math.random() * 10) + 5];
+    const newRevenueData = Array.from({length: 6}, () => Math.floor(Math.random() * 100) + 150);
+    
+    energyChart.data.datasets[0].data = newEnergyData;
+    productionChart.data.datasets[0].data = newProductionData;
+    revenueChart.data.datasets[0].data = newRevenueData;
+    
+    energyChart.update();
+    productionChart.update();
+    revenueChart.update();
+}
+
+// Auto-refresh every 5 minutes
+setInterval(updateCharts, 300000);
+</script>
+{% endblock %}
